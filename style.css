@@ -1,0 +1,190 @@
+@font-face { 
+    font-family: 'Single Day'; 
+    font-style: normal;  
+    font-weight: 400;
+    src: local('Single Day'), 
+             url('./fonts/SingleDay-Regular.ttf') format('woff'); 
+}
+
+*{
+  outline: none;
+  box-sizing: border-box;
+
+}
+#App {
+  margin:auto;
+}
+.wrapper {
+  width: 90%;margin: auto;
+}
+#containerAll, 
+.yarnGrid {
+  display:flex;
+  margin:auto;
+  flex-flow:column wrap;
+  justify-content:center;
+}
+header,
+.details {
+  text-align: center;
+}
+.yarnGrid {
+  flex-basis:100%;
+  width:100%;
+  margin: 2% auto;
+  flex-flow:row wrap;
+}
+.topContent {
+  display:flex;
+  justify-content: space-around;
+  align-items: stretch;
+  margin:0 auto 4%;
+}
+h2 {text-align: center;}
+.details {
+  width: 60%;
+  flex-basis: 60%;
+  order:2;
+  text-align: left;
+}
+.key {
+  border:10px solid darkolivegreen;
+  border-radius: 4px;
+  padding: .935em;
+  flex-basis:30%;
+  order: 1;
+}
+.keycode {
+  display:flex;
+  flex-flow:row wrap;
+}
+.keycode p {
+  flex-basis: 50%;
+  margin: 3px 0;
+}
+.updatedContent{
+  display: flex;
+  flex-flow:row no-wrap;
+  flex-basis:100%;
+  width:100%;
+}
+#rows,
+#stitches, 
+#stitchesStitched {
+  display:flex;
+  flex-flow:column;
+  justify-content:flex-start;
+  width: 222px;
+  text-align: right;
+  margin: 0 auto;
+}
+
+#rows p.flex, #stitches p.flex,
+#stitchesStitched p.flex {
+  display:flex;
+  flex-flow: column;
+  margin: 1% auto;
+}
+#rows input, #stitches input,
+#stitchesStitched input {
+  margin: 1%;
+}
+.rows, 
+.stitches {
+  display:flex;
+  height: 21px;
+  justify-content:flex-end;
+}
+span.row,
+span.stitch {
+  font-size:1.4rem;
+  margin:auto;
+}
+input,
+button {
+  height: 21px;
+}
+button {
+  border-radius:2px;
+  margin:1px;
+  height:27px;
+}
+.remove,
+.update {width:21%;height: auto;}
+.update {width:16%;}
+.remove img,
+.update img {
+  width: 100%;
+
+}
+.add {background:yellowgreen;font-weight:bold;}
+button {
+  border:1px solid transparent;
+}
+button:hover {
+  border: 1px solid #e3e3e3;
+}
+.knitPattern {
+  margin: 0 8px;
+  padding:0;
+}
+#container-wrapper {
+  display: flex;
+  flex-flow:column wrap;
+  height: 100%;
+  width: 100%;
+}
+.castOnContainer,
+.container,
+.stitchContainer {
+			border-radius: 8px;
+			display:grid;
+			margin: 0 1%;
+			width: 100%;
+			height: 100%;
+			flex-flow: row wrap;
+			justify-content: center;
+		}
+
+.grid {
+  margin:0;padding:0;height: 100%;width:100%;
+  z-index:1000;
+}
+.grid input {
+      width:50%;
+      border:1px solid #ccc;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+  }
+.grid input:focus { border: green 1px solid; }
+.grid p {
+  border:1px solid #ccc;
+  font-family: 'Single Day', cursive;
+  margin: auto;
+  padding: 0;
+  display: flex;  
+  width: auto;
+  height: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+  z-index:0;
+}
+
+.knitting-info {
+  border: 1px solid wheat;
+  width: 45%;
+  margin: 2% 0;
+}
+.knitting-info button {
+  border-radius: 50%;
+  height: 25px;
+  width:25px;
+  margin: 1.75%;
+
+}
+.mainColorContainer, .altColorContainer {
+  display:flex;
+  flex-flow: row nowrap;
+}

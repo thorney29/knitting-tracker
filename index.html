@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>KNITTING TRACKER</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+  <div class="wrapper">
+<!-- partial:index.partial.html -->
+<div id="app">
+  <header>
+  <h1>Row and Stitch Counter</h1>
+  </header>
+    <div class="topContent">
+      <div class="details">
+      <h2><strong>Instructions</strong></h2>
+      <ol>
+      <li>Enter the number of your cast on to get started.</li>
+      <li>Before you begin your rows, enter your row #.</li>
+      <li>After you add your row #, enter the # of stitches for this row. This will create your row grid.</li>
+      <li>If you aren't finished with your row, enter the # stitches you've completed so you know how many remain when you come back.</li>
+      <li>Click on a square to enter stitch details using the key to write the pattern knit, purl, k2TG, slipslipknit.</li></ol>
+     </div>
+     <div class="key">
+      <h3>KEY:</h3>
+      <div class="keycode">
+        <p>knit = k</p>
+        <p>purls = p </p>
+        <p>Increase = i </p>
+        <p>Decrease = d </p>
+        <p>K2TG = t</p>
+        <p>SSK = s</p>
+      </div>
+    </div>
+  </div>
+  <h2 class="knitPattern">Knit Pattern</h2>
+  <p>
+  <label for="">Enter the main yarn color</label>
+  <input v-model="newColor" id="mainColor" type="text">
+  <button class="add" @click="addMainColor">Add Main Color</button><br>    
+  </p>
+  <p>
+  <label for="">Enter the alt yarn color</label>
+  <input v-model="newAltColor" id="altColor" type="text">
+  <button class="add" @click="addAltColor">Add Alt Color</button><br>   
+  </p>
+  <p>
+  <label for="">Enter the stitch numbers to use alternate yarn color</label>
+  <input v-model="newAltColorStitch" id="altColor" type="text">
+  <button class="add" @click="addAltColorStitch">Add Alt Color Stitches</button><br>   
+  </p>
+    <div v-if="altColor || mainColor" class="knitting-info">
+      <div class="mainColorContainer"> 
+        <p>Main Color: <span id='mainColor' class="mainColor">{{mainColor}}</span></p>
+        <button class="remove" @click="removeMainColor()">X</button>
+      </div>
+      <div class="altColorContainer"> 
+        <p>Alternate Color: <span id='altColor' class="altColor">{{altColor}}</span></p>
+        <button class="remove" @click="removeAltColor()">X</button>
+      </div>
+      <div class="altColorStitchesContainer"> 
+        <p>Alt Color Stitch Numbers: <span id='altColorStitches' class="altColorStitches">{{altColorStitches}}</span></p>
+        <span>add alt color to grid</span><button class="add" @click="addAltColortoGridRows()">+</button>
+        <span>remove last color row added </span><button class="remove" @click="removeAltColorStitches()">X</button>
+      </div>
+    </div>
+      <div id="containerAll">
+      <div class="yarnGrid">
+          <div id="castonvalues">
+              <label for="">Enter the number to cast on</label>
+              <input v-model="newCastOn" id="castOnValue" type="number">
+              <button class="add" @click="addCastOn">Add addCastOn</button><br>    
+              <div v-for="(castOn,n) in castOns"> 
+                castOn:<span class="castOn">{{castOn}}</span> 
+                <button class="remove" @click="deleteCastOn(n)">Start Over</button>
+              </div>
+          </div>    
+      </div>
+
+      <div class="updatedContent">
+        <div id="container-wrapper">
+          <div class="container"></div> 
+        </div>
+        <div id="rows">
+          <h2>Row # Tracker</h2>
+          <div v-for="(row,n) in rows">
+            <p><span style="font-size:80%;"><em>Working on #:</em></span></p>
+            <p>
+            <span class="row">{{row}}</span> 
+            <button class="remove" @click="removeRow(n)"><img src="./icons/trash-alt-solid.svg" alt=""></button>
+            </p>
+          </div>
+          <p class="flex">
+          <input v-model="newRow"> 
+          <button class="add" @click="addRow">Add Row</button>
+          </p>
+        </div>
+        <div id="stitches">
+          <h2>Stitches to stitch</h2>
+          <p style="visibility:hidden; z-index:-9999999;position: absolute;margin-top: 0;"><em>Recent rows added: <span id="count">{{count}}</span></em></p>
+          <div v-for="(stitch,n) in stitches">
+            <p><em><span style="font-size:80%;">(Row #:{{n + 1}})</span></em></p>
+            <p>
+              <span class="stitch":class="stitch">{{stitch}}</span>
+              <button type="button" class="remove" @click="removeStitch(n)"><img src="./icons/trash-alt-solid.svg" alt=""></button>
+            </p>
+          </div>
+          <p class="flex">
+          <input v-model="newStitch"> 
+          <button class="add "@click="addStitch">Add Stitch</button>
+           
+          </p>
+        </div>
+        <div id="stitchesStitched">
+            <h2>Stitches stitched</h2>
+            <div v-for="(stitchSt,n) in stitchesStitched">
+              <p>
+                <span class="stitch">{{stitchSt}}</span>
+               <!--  <input v-model="stitchSt">  -->
+                <button class="remove" @click="removeStitchesStitched(n)"><img src="./icons/trash-alt-solid.svg" alt=""></button>
+              </p>
+            </div>
+            <p class="flex">
+            <input v-model="newStitchesStitched"> 
+            <button class="add "@click="addStitchesStitched">Add Stitched</button>
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src='https://unpkg.com/vue'></script>
+<script  src="./script.js"></script>
+<script>
+  let count = 1;
+  let alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+  let stitches = document.querySelectorAll('.stitch');
+  let stitchNumbers = Array.prototype.slice.call(stitches, 0)
+      // then we filter the Array:
+      .filter(function (el) {
+        // el: a reference to the current
+        //     Array element of the Array
+        //     over which we're iterating.
+        return el.textContent;
+      });
+  function getCount () {
+      let count = JSON.parse(localStorage.getItem("count"));
+      document.getElementById("count").innerHTML = count;
+  }
+  getCount();
+  function getSavedCastOn () {
+      let containerWrapper = JSON.parse(localStorage.getItem("lastContainer"));
+      document.getElementById("container-wrapper").innerHTML = containerWrapper;
+  }
+  getSavedCastOn();
+
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  function keyCode (event,id) {
+      event.preventDefault();
+      let keyPressed = `${event.code}`;
+      console.log(keyPressed);
+
+      if(keyPressed == 'KeyK') {
+        document.getElementById(id).innerHTML = '<p>K</p>';
+      }else if(keyPressed == 'KeyP') {
+        document.getElementById(id).innerHTML = '<p>P</p>';
+      } else if(keyPressed == 'KeyI') {
+        document.getElementById(id).innerHTML = '<p>&#8593;</p>';
+      }else if(keyPressed == 'KeyD') {
+        document.getElementById(id).innerHTML = '<p>&#8595;</p>';
+      } else if(keyPressed == 'KeyT') {
+        document.getElementById(id).innerHTML = '<p>//</p>';
+      } else if(keyPressed == 'KeyS') {
+        document.getElementById(id).innerHTML = '<p>\\//</p>';
+      } else if(keyPressed == 'Tab') {
+        event.preventDefault(); 
+        //Isolate the node that we're after
+        const currentNode = event.target;
+        //find all tab-able elements
+        const allElements = document.querySelectorAll('input, button, a, area, object, select, textarea, [contenteditable]');
+        //Find the current tab index.
+        const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
+        //focus the following element
+        const targetIndex = (currentIndex + 1) % allElements.length;
+        allElements[targetIndex].focus();
+      } else {
+        return;
+      }
+      let lastContainer = document.getElementById("container-wrapper");
+      localStorage.setItem('lastContainer', JSON.stringify(lastContainer.innerHTML));
+    }
+
+    function resetBox() {
+      this.innerHTML = `<div class="grid" onkeydown="keyCode(event,id);"><input type="text" /></div>`; 
+      keyCode (event,id); 
+    }
+   
+    let gridBoxes = document.querySelectorAll('.grid');
+    // Remove event listeners 
+    gridBoxes.forEach(gridBox => gridBox.addEventListener('dblclick', resetBox));
+
+   
+
+</script>
+<!-- partial -->
+  
+
+</body>
+</html>
